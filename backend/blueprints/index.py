@@ -1,8 +1,12 @@
-from flask import Blueprint, jsonify
+from settings import ACTIVE_API
 
-bp_index = Blueprint('bp_index', __name__)
+from flask import jsonify
+from flask_restful import Resource
 
 
-@bp_index.route('/', methods=['GET'])
-def index():
-    return jsonify({'code': 200})
+class Index(Resource):
+
+    def get(self):
+        def to_index():
+            return {k: v[1] for k, v in ACTIVE_API.items()}
+        return jsonify(to_index())
