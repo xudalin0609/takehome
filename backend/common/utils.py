@@ -20,7 +20,7 @@ def field_struct_decorator(data=None, code=200, errmsg="", **args):
     unix_time = int(time.time())
     back_jsonify = {'code': code,
                     "content": data,
-                    'unix_time': unix_time,
+                    'unixTime': unix_time,
                     "errMsg": errmsg}
     back_jsonify.update({k: v for k, v in args.items()})
     return jsonify(back_jsonify)

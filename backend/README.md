@@ -2,11 +2,19 @@
 
 - [Simple OCR Letters](https://github.com/teletraan/takehome/blob/master/backend/simple_ocr_letters.md)
 
+
+
 ## ocr
 
-ip|port|api|method
---|--|--|--
-http://127.0.0.1:8000 | 8000 | /api/v1/ocr | ['POST']
+### 方案
+
+
+
+
+### 接口列表
+ip|port|api|method|content
+--|--|--|--|--
+http://127.0.0.1:8000 | 8000 | /api/v1/ocr | ['POST'] | 传入图片，进行ocr，列表形式返回结果
 
 
 ### 参数列表
