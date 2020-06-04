@@ -16,6 +16,16 @@
 
 ### 部署方案
 使用flask+gunicorn+nginx,采用docker进行部署
+1. 生成镜像
+```
+docker build -t ocr-server .
+```
+
+2. 启动容器
+```
+docker run -d --name ocr-server -p 5000:5000 ocr-server
+```
+
 
 ### api规则
 1. 采用 **[地址]/api/[版本]/[资源]** 的格式,例如http://localhost/api/v1/ocr

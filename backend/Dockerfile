@@ -1,6 +1,6 @@
 From rakaim/pytesseract
 
-WORKDIR /app/src
+WORKDIR /app
 COPY . /app
 CMD cp ./data/chi_sim.traineddata /usr/share/tesseract-ocr/4.00/tessdata
 
