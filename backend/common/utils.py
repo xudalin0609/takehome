@@ -14,15 +14,12 @@ def get_classes(arg):
     return classes
 
 
-def field_struct_decorator(data=None, code=200, errmsg="", **args):
-    if data is None:
-        data = []
+def field_struct_decorator(code=0, errmsg="", **args):
     unix_time = int(time.time())
     back_jsonify = {'code': code,
-                    "content": data,
+                    "data": {k: v for k, v in args.items()},
                     'unixTime': unix_time,
                     "errMsg": errmsg}
-    back_jsonify.update({k: v for k, v in args.items()})
     return jsonify(back_jsonify)
 
 

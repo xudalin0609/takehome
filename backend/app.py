@@ -6,6 +6,7 @@ from flask import Flask
 from flask_restful import Api
 
 from common.extensions import db
+from common.utils import field_struct_decorator
 from settings import config, ACTIVE_API
 from blueprints.index import Index
 
@@ -20,6 +21,7 @@ def create_app(config_name=None):
     register_commands(app)
     register_extensions(app)
     register_api(api)
+    register_errors(app)
     return app
 
 
@@ -48,6 +50,20 @@ def register_commands(app):
             click.echo('Drop tables.')
         db.create_all()
         click.echo('Initialized database.')
+
+
+def register_errors(app):
+    @app.errorhandler(400)
+    def bad_request(e):
+        return field_struct_decorator(code=10001, message="Bad reuquest")
+
+    @app.errorhandler(404)
+    def error_request(e):
+        return field_struct_decorator(code=10002, message="Not found")
+
+    @app.errorhandler(500)
+    def internal_server_error(e):
+        return field_struct_decorator(code=20001, errmsg='Web server error')
 
 
 if __name__ == "__main__":

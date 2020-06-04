@@ -20,7 +20,7 @@ class Ocr(Resource):
         try:
             f = request.files['file']
         except Exception:
-            return field_struct_decorator(code=404, errmsg="Please upload file by parameter file")
+            return field_struct_decorator(code=10001, errmsg="Please upload file by parameter file")
         if f and allowed_file(f.filename):
             file_name = secure_filename(f.filename)
             try:
@@ -28,16 +28,30 @@ class Ocr(Resource):
 
             except Exception as e:
                 print(e)
-                return field_struct_decorator(code=1001, errmsg="Can't parse file as image")
+                return field_struct_decorator(code=10001, errmsg="Can't parse file as image")
             try:
-                insert_field = OcrMessage(
-                    file_name=file_name,
-                    file_content=str(msg),
-                    from_ip=request.remote_addr)
+                insert_field = OcrMessage(file_name=file_name, file_content=str(msg),
+                                          from_ip=request.remote_addr)
                 db.session.add(insert_field)
                 db.session.commit()
             except Exception as e:
                 print(f'InsertErr: {e}')
-            return field_struct_decorator(data=msg)
+            return field_struct_decorator(content=msg)
         else:
-            return field_struct_decorator(code=1001, errmsg="Can't parse file as image")
+            return field_struct_decorator(code=10001, errmsg="Can't parse file as image")
+
+    def get(self):
+        ocr_message_id = request.args.get('ocr_message_id', default=None)
+        limit = request.args.get('limit', default=10, type=int)
+        limit = min(limit, 200)
+        if ocr_message_id is None:
+            response_content = OcrMessage.query.limit(limit).all()
+        else:
+            response_content = OcrMessage.query.filter_by(ocr_message_id=ocr_message_id).all()
+
+        if len(response_content) == 0:
+            return field_struct_decorator(content=[])
+        else:
+            return field_struct_decorator(
+                content={_.ocr_message_id: _.file_content
+                         for _ in response_content})

@@ -1,10 +1,11 @@
 import uuid
+import time
 
 from common.extensions import db
 
 
 def generate_uuid(table_name):
-    return str(uuid.uuid3(uuid.NAMESPACE_DNS, table_name)).replace("-", "")
+    return str(uuid.uuid3(uuid.NAMESPACE_DNS, str(time.time()))).replace("-", "")
 
 
 class OcrMessage(db.Model):
@@ -17,4 +18,4 @@ class OcrMessage(db.Model):
     from_ip = db.Column(db.String(40), unique=False)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<ocr_message_id %r>' % self.ocr_message_id

@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# imgs
+# *.png
+# *.jpg
+
 # Distribution / packaging
 .Python
 build/
@@ -119,6 +123,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
+upload/
 
 # mypy
 .mypy_cache/
@@ -127,3 +132,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# vscode config
+.vscode/
