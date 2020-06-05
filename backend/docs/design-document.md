@@ -4,10 +4,11 @@
     --bluprints           # 业务逻辑控制
         --v1              # api版本
             --ocr         # api实现
-        --index.py        # index api,返回所有可用api列表
+        --index.py        # 返回所有可用api列表
     --common
         --utils.py        # 工具函数
         --extensions.py   # 扩展工具的实例
+    --data                # 存放模型及数据库文件
     --test                # 测试文件路径
     --app.py              # 项目入口及初始化
     --models.py           # sqlalchemy模型
