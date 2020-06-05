@@ -66,5 +66,7 @@ def register_errors(app):
         return field_struct_decorator(code=20001, errmsg='Web server error')
 
 
+app = create_app()
+
 if __name__ == "__main__":
     create_app().run()
